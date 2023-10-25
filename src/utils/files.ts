@@ -24,10 +24,14 @@ export function copyFromDefault(p: string): boolean {
 }
 
 export function copyFromAllDefault(folder: string): boolean {
-	const files = fs
+	if (fs.existsSync(folder) && fs.statSync(folder).isDirectory()) {
+		const files = fs
 		.readdirSync(folder)
 		.filter((v) => v.endsWith('.default'))
 		.map((v) => path.join(folder, v.slice(0, v.length - 8)));
 
-	return files.map(copyFromDefault).reduce((prev, curr) => prev || curr, false);
+		return files.map(copyFromDefault).reduce((prev, curr) => prev || curr, false);
+	} else {
+		return false;
+	}
 }
