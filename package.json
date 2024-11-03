@@ -1,6 +1,6 @@
 {
 	"name": "set-defaults",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "copy default files to their actual file name",
 	"publishConfig": {
 		"access": "public"

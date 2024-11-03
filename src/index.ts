@@ -1,16 +1,16 @@
 import {copyFromAllDefault} from './utils/files';
 
 export type Config = {
-	folders?: string[];
+	foldersOrFiles?: string[];
 };
 
-type ResolvedConfig = Config & {folders: string[]};
+type ResolvedConfig = Config & {foldersOrFiles: string[]};
 
 export async function copyDefaults(config: Config) {
-	const resolvedConfig: ResolvedConfig = {folders: ['.'], ...config};
+	const resolvedConfig: ResolvedConfig = {foldersOrFiles: ['.'], ...config};
 
 	let anyChanges = false;
-	for (const folder of resolvedConfig.folders) {
+	for (const folder of resolvedConfig.foldersOrFiles) {
 		anyChanges = copyFromAllDefault(folder) || anyChanges;
 	}
 

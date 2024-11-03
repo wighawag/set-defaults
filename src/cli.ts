@@ -9,11 +9,11 @@ const program = new Command();
 program
 	.name(name)
 	.version(pkg.version)
-	.usage(`[dirs...]`)
-	.argument(`[dirs...]`)
+	.usage(`[dirs|files...]`)
+	.argument(`[dirs|files...]`)
 	.description('copy default files to their respective filename')
-	.action((dirs) => {
-		copyDefaults({folders: dirs || ['.']});
+	.action((foldersOrFiles: string[]) => {
+		copyDefaults({foldersOrFiles: foldersOrFiles || ['.']});
 	});
 
 program.parse();

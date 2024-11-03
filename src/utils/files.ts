@@ -23,14 +23,18 @@ export function copyFromDefault(p: string): boolean {
 	return copyUnlessExists(`${p}.default`, p);
 }
 
-export function copyFromAllDefault(folder: string): boolean {
-	if (fs.existsSync(folder) && fs.statSync(folder).isDirectory()) {
-		const files = fs
-		.readdirSync(folder)
-		.filter((v) => v.endsWith('.default'))
-		.map((v) => path.join(folder, v.slice(0, v.length - 8)));
+export function copyFromAllDefault(folderOrFile: string): boolean {
+	if (fs.existsSync(folderOrFile)) {
+		if (fs.statSync(folderOrFile).isDirectory()) {
+			const files = fs
+				.readdirSync(folderOrFile)
+				.filter((v) => v.endsWith('.default'))
+				.map((v) => path.join(folderOrFile, v.slice(0, v.length - 8)));
 
-		return files.map(copyFromDefault).reduce((prev, curr) => prev || curr, false);
+			return files.map(copyFromDefault).reduce((prev, curr) => prev || curr, false);
+		} else {
+			return copyFromDefault(folderOrFile);
+		}
 	} else {
 		return false;
 	}
