@@ -33,7 +33,10 @@ export function copyFromAllDefault(folderOrFile: string): boolean {
 
 			return files.map(copyFromDefault).reduce((prev, curr) => prev || curr, false);
 		} else {
-			return copyFromDefault(folderOrFile);
+			if (folderOrFile.endsWith('.default')) {
+				return false;
+			}
+			return copyFromDefault(folderOrFile.slice(0, folderOrFile.length - 8));
 		}
 	} else {
 		return false;
